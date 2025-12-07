@@ -1,0 +1,51 @@
+# Dependencies
+node_modules
+.pnpm-store
+
+# Build outputs
+dist
+build
+.next
+out
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# Testing
+coverage
+.nyc_output
+
+# Foundry
+contracts/out
+contracts/cache
+contracts/broadcast
+
+# Circuits
+circuits/build
+circuits/*.ptau
+circuits/*.zkey
+circuits/*.wasm
+circuits/*.r1cs
+circuits/*.sym
+
+# Misc
+*.tsbuildinfo
+.turbo
+

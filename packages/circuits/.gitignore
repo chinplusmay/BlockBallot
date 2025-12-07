@@ -1,0 +1,18 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+build/*.wasm
+build/*.r1cs
+build/*.sym
+build/*.zkey
+build/*.json
+build/*.js
+build/*_js/
+
+# Powers of Tau files
+*.ptau
+
+# Intermediate files
+*.tmp
+

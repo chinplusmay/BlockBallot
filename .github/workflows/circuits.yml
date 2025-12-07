@@ -1,0 +1,67 @@
+name: Circuits CI
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'circuits/**'
+      - '.github/workflows/circuits.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'circuits/**'
+      - '.github/workflows/circuits.yml'
+
+jobs:
+  build:
+    name: Compile Circuits
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 9
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+
+      - name: Install Circom
+        run: |
+          curl -L https://github.com/iden3/circom/releases/download/v2.1.8/circom-linux-amd64 -o circom
+          chmod +x circom
+          sudo mv circom /usr/local/bin/
+
+      - name: Verify Circom installation
+        run: circom --version
+
+      - name: Install dependencies
+        working-directory: circuits
+        run: pnpm install
+
+      - name: Compile circuit
+        working-directory: circuits
+        run: |
+          mkdir -p build
+          circom src/vote.circom --wasm --r1cs --sym --O1 -o build
+
+      - name: Check constraint count
+        working-directory: circuits
+        run: |
+          npx snarkjs r1cs info build/vote.r1cs
+
+      - name: Cache circuit artifacts
+        uses: actions/cache@v4
+        with:
+          path: |
+            circuits/build/*.wasm
+            circuits/build/*.r1cs
+          key: circuits-${{ hashFiles('circuits/src/**') }}
+
+

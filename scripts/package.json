@@ -1,0 +1,23 @@
+{
+  "name": "scripts",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "deploy": "tsx deploy-contracts.ts",
+    "setup-semaphore": "tsx setup-semaphore.ts",
+    "generate-test-data": "tsx generate-test-data.ts",
+    "verify": "tsx verify-contracts.ts"
+  },
+  "dependencies": {
+    "viem": "^2.21.54",
+    "dotenv": "^16.4.7"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.2",
+    "tsx": "^4.19.2",
+    "@types/node": "^22.10.1"
+  }
+}
+
+
